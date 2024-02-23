@@ -14,8 +14,8 @@ const requestById = async (req, res) => {
 };
 
 const requestInsert = async (req, res) => {
-  const { body } = req;
-  const { status, data } = await productsService.getInsert(body.name);
+  const { name } = req.body;
+  const { status, data } = await productsService.getInsert(name);
 
   return res.status(mapStatusHTTP(status)).json(data);
 };
