@@ -13,7 +13,15 @@ const requestById = async (req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
+const requestInsert = async (req, res) => {
+  const { body } = req;
+  const { status, data } = await productsService.getInsert(body.name);
+
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   requestAll,
   requestById,
+  requestInsert,
 };

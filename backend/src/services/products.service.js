@@ -14,7 +14,15 @@ const getById = async (productId) => {
   return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
 };
 
+const getInsert = async (productName) => {
+  const returnId = await productsModel.insert(productName);
+
+  if (returnId) return { status: 'CREATED', data: { id: returnId, name: productName } };
+  return { status: 'INTERNAL_SERVER_ERROR', data: { message: 'Failed to create product' } };
+};
+
 module.exports = {
   getAll,
   getById,
+  getInsert,
 };
