@@ -1,5 +1,5 @@
 const express = require('express');
-const { productsRoutes } = require('./routes');
+const { productsRoutes, salesRoutes } = require('./routes');
 
 const app = express();
 app.use(express.json());
@@ -11,5 +11,6 @@ app.get('/', (_request, response) => {
 
 // rotas da familia products
 app.use('/products', productsRoutes);
+app.use('/sales', salesRoutes);
 
 module.exports = app;
