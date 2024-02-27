@@ -34,7 +34,27 @@ const saleByIdFromDB = [
   },
 ];
 
+const postSaleFromDB = [{ insertId: 3 }];
+
+const postSaleRequest = [{ productId: 1, quantity: 1 }];
+
+const postFailRequest = [{ productId: 99, quantity: 1 }];
+
+const postSaleResponse = {
+  id: 3,
+  itemsSold: [
+    {
+      productId: 1,
+      quantity: 1,
+    },
+  ],
+};
+
 module.exports = {
   salesFromDB,
   saleByIdFromDB,
+  postSaleFromDB,
+  postSaleRequest,
+  postSaleResponse,
+  postFailRequest,
 };

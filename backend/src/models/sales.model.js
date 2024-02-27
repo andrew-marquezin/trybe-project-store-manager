@@ -18,7 +18,6 @@ const findAll = async () => {
 };
 
 const findById = async (saleId) => {
-  // console.log(saleId);
   const [sale] = await connection.execute(`
   SELECT s.date,
     prod.product_id,
@@ -32,7 +31,40 @@ const findById = async (saleId) => {
   return camelize(sale);
 };
 
+const insertSProduct = async (body, saleId) => {
+  let insertPromises = [];
+
+  if (body && body.length > 0) {
+    insertPromises = body.map(({ productId, quantity }) => connection.execute(
+      'INSERT INTO sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?)',
+      [saleId, productId, quantity],
+    ));
+
+    await Promise.all(insertPromises);
+  }
+};
+
+const insertSale = async () => {
+  const [{ insertId }] = await connection.execute(`
+    INSERT INTO sales (date) VALUE (CURRENT_TIMESTAMP - INTERVAL 3 HOUR)
+  `);
+
+  return insertId;
+};
+
+const promisesOk = async (body, saleId) => {
+  try {
+    await insertSProduct(body, saleId);
+    return 'OK';
+  } catch (err) {
+    return err.message;
+  }
+};
+
 module.exports = {
   findAll,
   findById,
+  insertSale,
+  insertSProduct,
+  promisesOk,
 };

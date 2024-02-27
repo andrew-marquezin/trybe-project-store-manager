@@ -17,7 +17,30 @@ const validateInput = (req, res, next) => {
   next();
 };
 
+const validateProdId = (req, res, next) => {
+  const { body } = req;
+  const checkProductId = body.every((product) => 'productId' in product);
+
+  if (!checkProductId) return res.status(400).json({ message: '"productId" is required' });
+  next();
+};
+
+const validateProdQuantity = (req, res, next) => {
+  const { body } = req;
+  const checkProductQuantity = body.every((product) => 'quantity' in product);
+  const hasInvalidQuantity = body.some((product) => product.quantity < 1);
+  
+  if (!checkProductQuantity) return res.status(400).json({ message: '"quantity" is required' });
+
+  if (hasInvalidQuantity) {
+    return res.status(422).json({ message: '"quantity" must be greater than or equal to 1' });
+  }
+  next();
+};
+
 module.exports = {
   checkInput,
   validateInput,
+  validateProdId,
+  validateProdQuantity,
 };
