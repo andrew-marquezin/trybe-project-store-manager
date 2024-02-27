@@ -30,9 +30,17 @@ const getUpdate = async (productName, productId) => {
   return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
 };
 
+const getDelete = async (productId) => {
+  const returnOk = await productsModel.deleteProduct(productId);
+
+  if (returnOk === 'OK') return { status: 'OK_NO_CONTENT' };
+  return { status: 'NOT_FOUND' };
+};
+
 module.exports = {
   getAll,
   getById,
   getInsert,
   getUpdate,
+  getDelete,
 };

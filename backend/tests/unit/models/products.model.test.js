@@ -26,7 +26,7 @@ describe('Realizando testes - PRODUCTS MODEL: ', function () {
   it('Atualizando um produto com sucesso', async function () {
     sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
 
-    const response = await productsModel.update(1, 'Martelo do Batman');
+    const response = await productsModel.update('Martelo do Batman', 1);
 
     expect(response).to.be.equal('OK');
   });
@@ -34,7 +34,23 @@ describe('Realizando testes - PRODUCTS MODEL: ', function () {
   it('Falha ao atualizar um produto sem sucesso', async function () {
     sinon.stub(connection, 'execute').resolves([{ affectedRows: 0 }]);
 
-    const response = await productsModel.update(99, 'Martelo do Batman');
+    const response = await productsModel.update('Martelo do Batman', 99);
+
+    expect(response).to.be.equal('productId não existe');
+  });
+
+  it('Deleta um produto com sucesso', async function () {
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+
+    const response = await productsModel.deleteProduct(1);
+
+    expect(response).to.be.equal('OK');
+  });
+
+  it('Falha ao deletar um produto sem sucesso', async function () {
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 0 }]);
+
+    const response = await productsModel.update(99);
 
     expect(response).to.be.equal('productId não existe');
   });
