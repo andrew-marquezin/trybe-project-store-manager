@@ -24,8 +24,18 @@ const insert = async (productName) => {
   return insertId;
 };
 
+const update = async (productName, productId) => {
+  const [{ affectedRows }] = await connection.execute(
+    'UPDATE products SET name = ? WHERE id = ?',
+    [productName, productId],
+  );
+  if (affectedRows === 0) return 'productId não existe';
+  return 'OK';
+};
+
 module.exports = {
   findAll,
   findById,
   insert,
+  update,
 };

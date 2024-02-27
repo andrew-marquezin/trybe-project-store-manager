@@ -20,8 +20,17 @@ const requestInsert = async (req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
+const requestUpdate = async (req, res) => {
+  const { name } = req.body;
+  const { id } = req.params;
+  const { status, data } = await productsService.getUpdate(name, id);
+
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   requestAll,
   requestById,
   requestInsert,
+  requestUpdate,
 };

@@ -5,7 +5,7 @@ const { checkInput, validateInput } = require('../middlewares/inputValidation');
 route.get('/', productsController.requestAll);
 route.get('/:id', productsController.requestById);
 route.post('/', checkInput, validateInput, productsController.requestInsert);
-// route.put('/:id', productsController.requestUpdate);
+route.put('/:id', checkInput, validateInput, productsController.requestUpdate);
 // route.delete('/:id', productsController.requestDelete);
 
 module.exports = route;
