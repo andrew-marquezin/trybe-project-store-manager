@@ -11,7 +11,10 @@ const productsFromDB = [
 
 const productByIdFromDB = { id: 1, name: 'Martelo de Thor' };
 
+const updateProdMock = { id: 1, name: 'Martelo do Batman' };
+
 module.exports = {
   productsFromDB,
   productByIdFromDB,
+  updateProdMock,
 };

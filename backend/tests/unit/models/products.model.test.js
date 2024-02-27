@@ -23,6 +23,22 @@ describe('Realizando testes - PRODUCTS MODEL: ', function () {
     expect(product).to.be.deep.equal(productByIdFromDB);
   });
 
+  it('Atualizando um produto com sucesso', async function () {
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+
+    const response = await productsModel.update(1, 'Martelo do Batman');
+
+    expect(response).to.be.equal('OK');
+  });
+
+  it('Falha ao atualizar um produto sem sucesso', async function () {
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 0 }]);
+
+    const response = await productsModel.update(99, 'Martelo do Batman');
+
+    expect(response).to.be.equal('productId não existe');
+  });
+
   afterEach(function () {
     sinon.restore();
   });
